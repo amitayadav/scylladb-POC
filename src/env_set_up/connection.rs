@@ -2,11 +2,11 @@ use cdrs::authenticators::NoneAuthenticator;
 use cdrs::cluster::{ClusterTcpConfig, NodeTcpConfigBuilder, TcpConnectionPool};
 use cdrs::cluster::session::{new as new_session, Session};
 use cdrs::load_balancing::RoundRobin;
-use mock_derive::mock;
+/*use mock_derive::mock;
 
-#[mock]
+#[mock]*/
 pub type CurrentSession = Session<RoundRobin<TcpConnectionPool<NoneAuthenticator>>>;
-#[mock]
+
 pub fn connect() -> CurrentSession {
     let node = NodeTcpConfigBuilder::new("127.0.0.1:9042", NoneAuthenticator {}).build();
     let cluster_config = ClusterTcpConfig(vec![node]);

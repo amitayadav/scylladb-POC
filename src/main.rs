@@ -1,7 +1,7 @@
 extern crate actix_web;
 extern crate listenfd;
 extern crate scylladb_poc;
-extern crate mock_derive;
+//extern crate mock_derive;
 
 mod handler;
 use handler::*;

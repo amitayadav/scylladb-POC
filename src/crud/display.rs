@@ -2,9 +2,9 @@ use env_set_up::{connection::*,models::Student};
 use actix_web::Path;
 use cdrs::query::QueryExecutor;
 use cdrs::types::prelude::*;
-use mock_derive::mock;
+/*use mock_derive::mock;
 
-#[mock]
+#[mock]*/
 pub fn select_struct(session: &CurrentSession, path: Path<i32>) -> Student{
     let select_struct_cql = "SELECT * FROM student_ks.my_student_table where roll_no = ?";
     let roll_no = path.into_inner();

@@ -3,9 +3,10 @@ use scylladb_poc::env_set_up::{connection::*,keyspace::*,table::*,models::*};
 use scylladb_poc::crud::{insert::*,delete::*,update::*,display::*};
 
 pub fn insert(student: Json<Student>) -> Result<String> {
-    create_keyspace(&connect());
-    create_table(&connect());
-    insert_struct(&connect(), student);
+    let session = &connect();
+    create_keyspace(&session);
+    create_table(&session);
+    insert_struct(&session, student);
     Ok(format!("Welcome ! student added "))
 }
 
