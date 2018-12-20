@@ -1,3 +1,4 @@
+#![feature(core_intrinsics)]
 #[macro_use]
 extern crate cdrs;
 #[macro_use]
@@ -7,7 +8,8 @@ extern crate serde;
 #[macro_use]
 extern crate serde_derive;
 extern crate serde_json;
-//extern crate mock_derive;
+#[macro_use]
+extern crate failure;
 
 pub mod env_set_up {
     pub mod connection;
@@ -21,6 +23,7 @@ pub mod crud {
     pub mod delete;
     pub mod update;
     pub mod display;
+    pub mod isPresent;
 }
 
-pub mod test;
+pub mod error;

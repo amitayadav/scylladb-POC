@@ -1,15 +1,18 @@
 extern crate actix_web;
 extern crate listenfd;
 extern crate scylladb_poc;
-//extern crate mock_derive;
+extern crate serde_json;
+extern crate env_logger;
 
 mod handler;
 use handler::*;
 
-use actix_web::{App, http, server};
+use actix_web::{App,http, server};
 use listenfd::ListenFd;
 
 fn main() {
+    ::std::env::set_var("RUST_LOG", "actix_web=debug");
+    env_logger::init();
     let mut listenfd = ListenFd::from_env();
     let mut server = server::new(|| {
         App::new()
@@ -31,3 +34,5 @@ fn main() {
     server.run();
 }
 
+#[cfg(test)]
+mod test;
