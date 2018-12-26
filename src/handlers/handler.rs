@@ -1,29 +1,23 @@
 use actix_web::{Json, Path, Result};
-use scylladb_poc::crud::{delete::*, display::*, insert::*, update::*};
-use scylladb_poc::env_set_up::{connection::*, keyspace::*, models::*, table::*};
-use scylladb_poc::error::*;
+use crud::{delete::delete_struct, display::select_struct, insert::insert_struct, update::update_struct};
+use env_set_up::{connection::connect,models::Student};
+use error::CustomError;
 
 pub fn insert(student: Json<Student>) -> Result<&'static str, CustomError> {
     let session = &connect();
     let stu: Student = student.into_inner();
-    match stu.marks <= 100 {
-        true => {
-            match stu.name == "" {
-                true => Err(CustomError::InvalidInput {
-                    field: "name should not be null"
-                }),
-                false => {
-                    create_keyspace(&session);
-                    create_table(&session);
-                    insert_struct(&session, stu)
-                }
-            }
-        }
-        false => {
-            Err(CustomError::InvalidInput {
-                field: "marks should not be greater than 100"
+    if stu.marks <= 100 {
+        if stu.name == ""
+            { Err(CustomError::InvalidInput {
+                field: "name should not be null"
             })
+            } else {
+            insert_struct(&session, stu)
         }
+    } else {
+        Err(CustomError::InvalidInput {
+            field: "marks should not be greater than 100"
+        })
     }
 }
 
@@ -31,7 +25,7 @@ pub fn show(path: Path<i32>) -> Result<Json<Option<Student>>, CustomError> {
     let student = select_struct(&connect(), path);
     let stu_clone = student.clone();
     match stu_clone {
-        Some(_T) => {
+        Some(_t) => {
             let stu = student.unwrap();
             Ok(Json(Some(Student {
                 roll_no: stu.roll_no,

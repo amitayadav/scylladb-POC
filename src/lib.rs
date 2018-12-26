@@ -1,4 +1,3 @@
-#![feature(core_intrinsics)]
 #[macro_use]
 extern crate cdrs;
 #[macro_use]
@@ -23,7 +22,11 @@ pub mod crud {
     pub mod delete;
     pub mod update;
     pub mod display;
-    pub mod isPresent;
+    pub mod is_present;
 }
 
 pub mod error;
+
+pub mod handlers{
+    pub mod handler;
+}
