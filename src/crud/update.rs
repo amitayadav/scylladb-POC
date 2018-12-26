@@ -1,7 +1,8 @@
 use actix_web::{Json, Result};
 use cdrs::query::*;
 use crud::is_present::is_present;
-use env_set_up::{connection::CurrentSession, models::Student};
+use env_set_up::connection::CurrentSession;
+use models::model::Student;
 
 pub fn update_struct(session: &CurrentSession, new_student: Json<Student>, path: i32) -> Result<&'static str> {
     if is_present(&session, path.to_owned())

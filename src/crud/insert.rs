@@ -1,7 +1,8 @@
 use actix_web::Result;
 use cdrs::query::QueryExecutor;
 use crud::is_present::is_present;
-use env_set_up::{connection::*, models::*};
+use env_set_up::connection::CurrentSession;
+use models::model::Student;
 use error::CustomError;
 
 pub fn insert_struct(session: &CurrentSession, new_student: Student)

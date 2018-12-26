@@ -1,7 +1,7 @@
 use actix_web::{Path, Result};
 use cdrs::query::QueryExecutor;
 use crud::is_present::is_present;
-use env_set_up::connection::*;
+use env_set_up::connection::CurrentSession;
 
 pub fn delete_struct(session: &CurrentSession, id: Path<i32>) -> Result<&'static str> {
     let roll_no = id.into_inner();

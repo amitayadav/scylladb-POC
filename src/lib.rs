@@ -14,7 +14,6 @@ pub mod env_set_up {
     pub mod connection;
     pub mod keyspace;
     pub mod table;
-    pub mod models;
 }
 
 pub mod crud {
@@ -23,6 +22,10 @@ pub mod crud {
     pub mod update;
     pub mod display;
     pub mod is_present;
+}
+
+pub mod models {
+    pub mod model;
 }
 
 pub mod error;

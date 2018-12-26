@@ -3,7 +3,7 @@ extern crate actix_web;
 
 use actix_web::{App, http,test};
 use actix_web::{HttpMessage,client::ClientResponse};
-use scylladb_poc::{env_set_up::models::Student,handlers::handler::{insert,delete,show,update}};
+use scylladb_poc::{models::model::Student,handlers::handler::{insert,delete,show,update}};
 use std::str;
 
 fn create_app() -> App {
@@ -21,7 +21,8 @@ fn test_insert_first_time() {
     let stu = Student { roll_no: 11, name: "amita".to_string(), marks: 65 };
     let mut srv = test::TestServer::with_factory(create_app);
 
-    let request = srv.client(http::Method::POST, "/add").json(stu).unwrap();
+    let request = srv.client(http::Method::POST, "/add").json(stu)
+        .unwrap();
     let response: ClientResponse = srv.execute(request.send()).unwrap();
 
     assert!(response.status().is_success());
@@ -36,7 +37,8 @@ fn test_insert_not_first_time() {
     let stu = Student { roll_no: 1, name: "ayush".to_string(), marks: 80 };
     let mut srv = test::TestServer::with_factory(create_app);
 
-    let request = srv.client(http::Method::POST, "/add").json(stu).unwrap();
+    let request = srv.client(http::Method::POST, "/add").json(stu)
+        .unwrap();
     let response: ClientResponse = srv.execute(request.send()).unwrap();
 
     assert!(response.status().is_success());
@@ -66,7 +68,8 @@ fn test_update() {
     let stu = Student { roll_no: 1, name: "ayush".to_string(), marks: 80 };
     let mut srv = test::TestServer::with_factory(create_app);
 
-    let request = srv.client(http::Method::PUT, "/update/1").json(stu).unwrap();
+    let request = srv.client(http::Method::PUT, "/update/1").json(stu)
+        .unwrap();
     let response:ClientResponse = srv.execute(request.send()).unwrap();
 
     assert!(response.status().is_success());
@@ -81,7 +84,8 @@ fn test_update_student_not_exist() {
     let stu = Student { roll_no: 1, name: "ayush".to_string(), marks: 80 };
     let mut srv = test::TestServer::with_factory(create_app);
 
-    let request = srv.client(http::Method::PUT, "/update/11").json(stu).unwrap();
+    let request = srv.client(http::Method::PUT, "/update/11").json(stu)
+        .unwrap();
     let response:ClientResponse = srv.execute(request.send()).unwrap();
 
     assert!(response.status().is_success());
@@ -97,7 +101,8 @@ fn test_update_student_not_exist() {
 fn test_display_student_not_exist() {
     let mut srv = test::TestServer::with_factory(create_app);
 
-    let request = srv.client(http::Method::GET, "/show/12").finish().unwrap();
+    let request = srv.client(http::Method::GET, "/show/12").finish()
+        .unwrap();
     let response:ClientResponse = srv.execute(request.send()).unwrap();
 
     assert!(response.status().is_success());
@@ -112,7 +117,8 @@ fn test_display_student_not_exist() {
 fn test_delete() {
     let mut srv = test::TestServer::with_factory(create_app);
 
-    let request = srv.client(http::Method::DELETE, "/delete/1").finish().unwrap();
+    let request = srv.client(http::Method::DELETE, "/delete/1").finish()
+        .unwrap();
     let response:ClientResponse = srv.execute(request.send()).unwrap();
 
     assert!(response.status().is_success());
@@ -126,7 +132,8 @@ fn test_delete() {
 fn test_delete_student_not_exist() {
     let mut srv = test::TestServer::with_factory(create_app);
 
-    let request = srv.client(http::Method::DELETE, "/delete/1").finish().unwrap();
+    let request = srv.client(http::Method::DELETE, "/delete/1").finish()
+        .unwrap();
     let response:ClientResponse = srv.execute(request.send()).unwrap();
 
     assert!(response.status().is_success());

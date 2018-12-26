@@ -1,6 +1,7 @@
 use actix_web::{Json, Path, Result};
 use crud::{delete::delete_struct, display::select_struct, insert::insert_struct, update::update_struct};
-use env_set_up::{connection::connect,models::Student};
+use env_set_up::connection::connect;
+use models::model::Student;
 use error::CustomError;
 
 pub fn insert(student: Json<Student>) -> Result<&'static str, CustomError> {
